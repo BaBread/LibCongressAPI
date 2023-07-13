@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Real Winners</title>
+        <link rel="stylesheet" href="./assets/style.css">
+    </head>
+
+    <body> 
+
+        <header>
+            <h4 id="view-high-scores">View High Scores</h4> 
+            <h4 class="timer">Time: <span id="timer"></span></h4>
+        </header>
+
+
+        <div id="starter-container" class="show">
+            <div class="container start">
+                <h1>Real Winners</h1>  
+                <p>Try your best to answer these 10 questions within the time limit! Remember, don't overthink! 
+                </p>
+                <button class="btn startend" id="start-game">Start Quiz</button>
+            </div>    
+        </div>
+
+<!-- This div contains the quiz questions and answer buttons -->
+        <div id="question-container" class="hide">
+            <div class="container questions">
+                <div id="question"></div>
+                <div id="hint"></div><!--New element for displaying the hint!-->
+                <div id="answer-buttons" class="btn-grid"></div>
+            </div>
+        </div>
+
+
+<!-- This div shows at the end of the quiz and allows for the submission of your score -->
+        <div id="end-container" class="hide">
+           <div class="container end">
+            <div id="score-banner">
+                <h1>All done!</h1>
+            </div>  
+            <form id="initials-form" class="initials">
+              <p> Enter Initials:
+                <input type="text" name="initials" id="initials" class="text-input" />
+                <button class="btn startend" id="submit-score" type="submit">Submit</button> </p>
+
+                <!--Change "Link to Deployed Application" to the URL of the website, unless you want to troll!
+                Maybe the rick roll video?-->
+                <a href="Link to Deployed Application" target="_self">Click here to restart quiz! Remember failure is the greatest teacher! :)</a>
+              </form>
+            </div>
+        </div>
+
+        <div id="high-score-container" class="hide">
+          <div class="high-scores container">
+            <h1 class="high-score">High Scores</h1>
+            <ol id="high-score-list" class="score-list"></ol>
+        <div>
+            <button class="btn" id="go-back">Go back</button>
+            <button class="btn" id="clear-high-scores">Clear high scores</button>
+        </div>
+        </div>
+    </div>
+<!-- This div shows the text for if the answer is correct -->
+    <div class="hide" id="correct">
+        <h2>Correct :)!</h2>
+    </div>
+    <div class="hide" id="wrong">
+        <h2>Wrong :( </h2>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="./assets/script.js"></script> 
+</body>
+</html>
