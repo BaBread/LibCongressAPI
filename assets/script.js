@@ -1,7 +1,10 @@
 // This part of the code pulls the collaborators from the Github repository this will be used to compare against the entered
 // Github username to determine if they pass or not
+let usernameField = $('#username-input')
+let passEl = $('#passed')
+let failEl = $('#failed')
 const collaboratorLogins = [];
-const token = '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'
+const token = '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'
 gitHubURL = "https://api.github.com/repos/BaBread/RealWinners/collaborators"
 
 $.ajax({
@@ -26,7 +29,23 @@ $.ajax({
 
 
   let checkCollaborator = function() { 
-    
+    let isMatch = collaboratorLogins.includes(usernameField.val());
+
+    if (isMatch) {
+        passEl.addClass('show')
+        passEl.removeClass('hide')
+        failEl.addClass('hide')
+        failEl.removeClass('show')
+
+    }
+
+    else {
+        passEl.addClass('hide')
+        passEl.removeClass('show')
+        failEl.addClass('show')
+        failEl.removeClass('hide')
+
+    }
 
 
 
