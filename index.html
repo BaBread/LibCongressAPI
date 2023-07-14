@@ -22,6 +22,10 @@
                 <p>Try your best to answer these 10 questions within the time limit! Remember, don't overthink! 
                 </p>
                 <button class="btn startend" id="start-game">Start Quiz</button>
+                <form id="username-form" class="username">
+                    <p>Enter your username:</p>
+                    <input type="text" name="username" id="username-input" class="text-input" required>
+                </form>
             </div>    
         </div>
 
@@ -29,7 +33,7 @@
         <div id="question-container" class="hide">
             <div class="container questions">
                 <div id="question"></div>
-                <div id="hint"></div><!--New element for displaying the hint!-->
+                <div id="hint"></div><!--New element for displaying the hint/jokes!-->
                 <div id="answer-buttons" class="btn-grid"></div>
             </div>
         </div>
@@ -40,6 +44,8 @@
            <div class="container end">
             <div id="score-banner">
                 <h1>All done!</h1>
+                <h2 id="passed">Congratulations, you passed!</h2>
+                <h2 id="failed">Congratulations, you failed</h3>
             </div>  
             <form id="initials-form" class="initials">
               <p> Enter Initials:
@@ -74,5 +80,6 @@
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./assets/script.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </body>
 </html>
