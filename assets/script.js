@@ -4,8 +4,8 @@ let questionContainer = $('#question-container');
 let endContainer = $('#end-container');
 let highScoreContainer = $('#high-score-container');
 let scoreContainer = $('#score-banner');
-let correctEl = $('#correct');
-let wrongEl = $('#wrong');
+let correctEl = $('#correct')
+let wrongEl = $('#wrong')
 
 
 // Define all variables to point to the buttons of start quiz, go back, and clear high scores
@@ -14,45 +14,44 @@ let goBackBtn = $('#go-back');
 let clearHighScoreBtn = $('#clear-high-scores');
 
 
+
+
 // Define variables to point to questions, answers, timer
 let questionsEl = $('#question');
-let answersEl = $('#answer-buttons');
+let answersEl = $('#answer-buttons')
 
 
 // Define base starting variables like score, time left, game over state
 let timerEl = $('#timer');
 let score = 0;
 timerEl.text('0');
-let gameover = "";
+let gameover="";
 let timeLeft;
 
 
 // Variables associated with highscores and define an array to store high scores
-let viewHighScoreEl = $('#view-high-scores');
-let listHighScoreEl = $('#high-score-list');
-let initialsFormEl = $('#initials-form');
+let viewHighScoreEl = $('#view-high-scores')
+let listHighScoreEl = $('#high-score-list')
+let initialsFormEl = $('#initials-form')
 let highScores = [];
-let submitScoreEl = $('#submit-score');
-
+let submitScoreEl = $('#submit-score')
 
 // We will be using an array to shuffle questions
 let arrayShuffleQuestions = [];
 let initQuestionIndex = 0;
 
-
 // These are the variables associated with the GitHub API functionality
-let usernameField = $('#username-input');
-let passEl = $('#passed');
-let failEl = $('#failed');
+let usernameField = $('#username-input')
+let passEl = $('#passed')
+let failEl = $('#failed')
 const collaboratorLogins = [];
 
-
 // JokeAPI Variables
-let hintButton = $('#hint-button');
-let hintElement = $('#hint');
+let hintButton = $("#hint-button");
+let hintElement = $("#hint");
 
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 // This section contains the code and functions for the base quiz functionality
 // The questions will be stored in an array with each index holding the object of question, answer, and choices
 let questions = [
@@ -153,136 +152,123 @@ let questions = [
 
 
 // Set timer function for quiz
-let quizStartTime = function () {
+let quizStartTime = function() {
   timeLeft = 60;
 
 
-  let timerCountDown = setInterval(function () {
-    timerEl.text(timeLeft);
-    timeLeft--;
+
+let timerCountDown = setInterval(function () {
+  timerEl.text(timeLeft);
+  timeLeft--;
+
+  if(gameover) {
+  clearInterval(timerCountDown)
+
+  }
+
+  if (timeLeft<0) {
+    showScore()
+    timerEl.text('0')
+    clearInterval(timerCountDown)
 
 
-    if (gameover) {
-      clearInterval(timerCountDown);
-    }
+  }
+
+},1000)
+}
+
+// create function to start the game
+
+let startGame = function() {
+  startContainer.addClass('hide');
+  startContainer.removeClass('show');
+  questionContainer.addClass('show');
+  questionContainer.removeClass('hide');
+  arrayShuffleQuestions = questions.sort(() => Math.random()-0.5);
+  quizStartTime()
+  setQuestions()
+
+}
+
+let resetAnswers = function() {
+  while (answersEl.children().length > 0) {
+    answersEl.children().remove();
+
+  }
+
+}
 
 
-    if (timeLeft < 0) {
-      showScore();
-      timerEl.text('0');
-      clearInterval(timerCountDown);
-    }
+
+// function to hide other containers and show the questions container
+let displayQuestions = function(index) {
+  questionsEl.text(index.q);
+  for (let i=0;i<index.choices.length;i++) {
+    let answerBtn = $('<button></button>');
+    answerBtn.text(index.choices[i].choice);
+    answerBtn.addClass('btn');
+    answerBtn.addClass('answerbtn');
+    answerBtn.on('click',answerCheck)
+    answersEl.append(answerBtn);
 
 
-    if (!arrayShuffleQuestions[initQuestionIndex].isWrittenResponse) {
-      initQuestionIndex++;
-      if (initQuestionIndex < arrayShuffleQuestions.length) {
-        setQuestions();
-      } else {
-        gameover = "true";
-        showScore();
-      }
-    }
+  }
 
 
-    // Check if the current question is the country question and adjust the timer accordingly
-    if (arrayShuffleQuestions[initQuestionIndex].isWrittenResponse && timeLeft <= 10) {
-      timerEl.text('10');
-    }
-  }, 1000);
-};
+}
+
+let setQuestions = function() {
+  resetAnswers()
+  displayQuestions(arrayShuffleQuestions[initQuestionIndex])
+
+}
+
+// display for if question is right or wrong
+
+let answerCorrect = function() {
+  correctEl.addClass('banner');
+  correctEl.removeClass('hide');
+  wrongEl.removeClass('banner');
+  wrongEl.addClass('show');
 
 
-// Function checks if the selected answer matches the answer in the shuffled questions object
-let answerCheck = function (event) {
-  let selectedanswer = event.target;
-  if (arrayShuffleQuestions[initQuestionIndex].a === $(selectedanswer).text()) {
+}
+
+let answerWrong = function() {
+  wrongEl.addClass('banner');
+  wrongEl.removeClass('hide');
+  correctEl.addClass('hide');
+  correctEl.removeClass('banner');
+}
+
+// function checks if the selected answer matches the answer in the shuffled questions object
+let answerCheck = function(event) {
+  let selectedanswer=event.target;
+  if (arrayShuffleQuestions[initQuestionIndex].a===$(selectedanswer).text()){
     answerCorrect();
     score = score + 10;
-  } else {
+  }
+  else {
     answerWrong();
     score = score - 3;
     timeLeft = timeLeft - 5;
   }
 
-
-  if (!arrayShuffleQuestions[initQuestionIndex].isWrittenResponse) {
-    initQuestionIndex++;
-    if (initQuestionIndex < arrayShuffleQuestions.length) {
-      setQuestions();
-    } else {
-      gameover = "true";
-      showScore();
-    }
+  initQuestionIndex++
+  if (initQuestionIndex < arrayShuffleQuestions.length ) {
+    setQuestions();
   }
-};
 
-
-// Create function to start the game
-let startGame = function () {
-  startContainer.addClass('hide');
-  startContainer.removeClass('show');
-  questionContainer.addClass('show');
-  questionContainer.removeClass('hide');
-  arrayShuffleQuestions = questions.sort(() => Math.random() - 0.5);
-  quizStartTime();
-  setQuestions();
-};
-
-
-let resetAnswers = function () {
-  answersEl.empty();
-};
-
-
-// Function to hide other containers and show the questions container
-let displayQuestions = function (index) {
-  questionsEl.text(index.q);
-
-
-  if (index.isWrittenResponse) {
-    let answerInput = $('<input>');
-    answerInput.attr('type', 'text');
-    answerInput.attr('id', 'country-answer');
-    answersEl.append(answerInput);
-  } else {
-    for (let i = 0; i < index.choices.length; i++) {
-      let answerBtn = $('<button></button>');
-      answerBtn.text(index.choices[i].choice);
-      answerBtn.addClass('btn');
-      answerBtn.addClass('answerbtn');
-      answerBtn.on('click', answerCheck);
-      answersEl.append(answerBtn);
-    }
+  else {
+    gameover = "true";
+    showScore();
   }
-};
 
 
-let setQuestions = function () {
-  resetAnswers();
-  displayQuestions(arrayShuffleQuestions[initQuestionIndex]);
-};
+}
 
-
-// Display for if question is right or wrong
-let answerCorrect = function () {
-  correctEl.addClass('banner');
-  correctEl.removeClass('hide');
-  wrongEl.removeClass('banner');
-  wrongEl.addClass('show');
-};
-
-
-let answerWrong = function () {
-  wrongEl.addClass('banner');
-  wrongEl.removeClass('hide');
-  correctEl.addClass('hide');
-  correctEl.removeClass('banner');
-};
-
-
-// Function shows the score by hiding other containers
-let showScore = function () {
+// function shows the score by hiding other containers
+let showScore = function (){
   questionContainer.addClass('hide');
   questionContainer.removeClass('show');
   endContainer.addClass('show');
@@ -292,27 +278,219 @@ let showScore = function () {
   correctEl.addClass('hide');
   correctEl.removeClass('banner');
 
-
   let displayScore = $('<p></p>');
-  displayScore.text('Your score is ' + score + '!');
-  $('#score-banner').append(displayScore);
-};
+  displayScore.text('Your score is ' + score + "!")
+  $('#score-banner').append(displayScore)
+
+}
+// functions below create the high scores and save to local storage, allowing them to be loaded upon page reload
+// let createHighScore = function(event) {
+//   event.preventDefault();
+//   let initials = $("#initials").val();
+//   if (!initials) {
+//     alert("Enter your initials!");
+//     return;
+//   }
+
+//   initialsFormEl[0].reset();
+
+//   let HighScore = {
+//     initials: initials,
+//     score: score
+//   };
+
+//   // Push and sort scores
+//   highScores.push(HighScore);
+//   highScores.sort((a, b) => {
+//     return b.score - a.score;
+//   });
+
+//   // Clear visible list to resort
+//   listHighScoreEl.empty();
+
+//   // Create elements in order of high scores
+//   for (var i = 0; i < highScores.length; i++) {
+//     var highscoreEl = $("<li>").addClass("high-score");
+//     highscoreEl.html(highScores[i].initials + " - " + highScores[i].score);
+//     listHighScoreEl.append(highscoreEl);
+//   }
+
+//   saveHighScore();
+//   displayHighScores();
+// };
 
 
-let resetToStart = function () {
-  startContainer.addClass('show').removeClass('hide');
-  highScoreContainer.addClass('hide').removeClass('show');
-  questionContainer.addClass('hide').removeClass('show');
-  endContainer.addClass('hide').removeClass('show');
-  scoreContainer.addClass('hide').removeClass('show');
-  correctEl.addClass('hide').removeClass('show');
-  wrongEl.addClass('hide').removeClass('show');
-  gameover = "";
-  timerEl.text('0');
-  score = 0;
-};
+// let saveHighScore = function(){
+//   localStorage.setItem("highScore", JSON.stringify(highScores))
 
 
-startBtn.on('click', startGame);
-goBackBtn.on('click', resetToStart);
+// }
+
+// let loadHighScore = function() {
+//   let loadedHighScore = localStorage.getItem('highScore')
+//   if (!loadedHighScore) {
+//     return false;
+//   }
+
+//   loadedHighScore = JSON.parse(loadedHighScore)
+//   loadedHighScore.sort(function(a, b) {
+//     return b.score - a.score;
+//   });
+
+//   highScores = loadedHighScore
+
+//   for (let i=0; i< highScores.length;i++) {
+//     let highScoreEl = $('<li></li>')
+//     highScoreEl.addClass('high-score')
+//     highScoreEl.text(highScores[i].initials + " - " + highScores[i].score)
+//     listHighScoreEl.append(highScoreEl)
+//   }
+
+
+// }
+
+let displayHighScores = function() {
+  highScoreContainer.addClass('show');
+  highScoreContainer.removeClass('hide');
+  gameover = "true"
+
+  if (endContainer.hasClass('show')) {
+    endContainer.removeClass('show').addClass('hide');
+  }
+  
+  if (startContainer.hasClass('show')) {
+    startContainer.removeClass('show').addClass('hide');
+  }
+  
+  if (questionContainer.hasClass('show')) {
+    questionContainer.removeClass('show').addClass('hide');
+  }
+  
+  if (correctEl.hasClass('show')) {
+    correctEl.removeClass('show').addClass('hide');
+  }
+  
+  if (wrongEl.hasClass('show')) {
+    wrongEl.removeClass('show').addClass('hide');
+  }
+
+
+}
+// clears the scores both on the page and in local storage
+// let clearScores = function() {
+//   highScores= [];
+
+//   listHighScoreEl.empty();
+//   saveHighScore();
+
+//   }
+
+
+
+// resets the page back to the initial start
+let resetToStart = function() {
+startContainer.addClass('show').removeClass('hide');
+highScoreContainer.addClass('hide').removeClass('show');
+questionContainer.addClass('hide').removeClass('show');
+endContainer.addClass('hide').removeClass('show');
+scoreContainer.addClass('hide').removeClass('show');
+correctEl.addClass('hide').removeClass('show');
+wrongEl.addClass('hide').removeClass('show');
+gameover = "";
+timerEl.text('0');
+score = 0;
+
+
+
+}
+
+// loads the stored high scores and holds all the event listeners for the buttons
+// loadHighScore()
+startBtn.on("click", startGame);
+submitScoreEl.on('click',createHighScore)
+viewHighScoreEl.on('click',displayHighScores)
+goBackBtn.on('click',resetToStart)
+clearHighScoreBtn.on('click',clearScores)
+
+
+
+
+
+
+// ------------------------------------------------------------------------------------------------------------
+// This part of the code pulls the collaborators from the Github repository this will be used to compare against the entered
+// Github username to determine if they pass or not
+
+const token = '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'
+gitHubURL = "https://api.github.com/repos/BaBread/RealWinners/collaborators"
+
+$.ajax({
+    url: gitHubURL,
+    method: "GET",
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+      }
+  })
+  .done(function(collaborators) {
+    // Extract the login names of the collaborators and store in the array
+    collaborators.forEach(function(collaborator) {
+      collaboratorLogins.push(collaborator.login);
+    });
+    
+    // Display the list of collaborators
+    console.log("Collaborators:", collaboratorLogins);
+  })
+  .fail(function(jqXHR, textStatus, errorThrown) {
+    console.error("Error fetching collaborators from GitHub API:", errorThrown);
+  });
+
+
+  let checkCollaborator = function() { 
+    let isMatch = collaboratorLogins.includes(usernameField.val());
+
+    if (isMatch) {
+        passEl.addClass('show')
+        passEl.removeClass('hide')
+        failEl.addClass('hide')
+        failEl.removeClass('show')
+
+    }
+
+    else {
+        passEl.addClass('hide')
+        passEl.removeClass('show')
+        failEl.addClass('show')
+        failEl.removeClass('hide')
+
+    }
+
+
+
+  }
+  
+  // -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  // This part of the code pulls the JokeAPI 
+
+$(document).ready(function() {
+    
+  
+    // function that handles the click event
+    function handleClick() {
+      // ajax request to the jokes api with safemode enabled for sfw jokes
+      $.ajax({
+        url: "https://v2.jokeapi.dev/joke/Misc,Programming?format=xml&safe-mode&type=single",
+        method: "GET",
+        success: function(response) {
+          hintElement.text(response.joke);
+        },
+        error: function(xhr, status, error) {
+          console.log("Error:", error);
+          hintElement.text("Failed to fetch joke from the API.");
+        }
+      });
+    }
+  
+    // adds event listener for the click event on the hint button
+    hintButton.on("click", handleClick);
+  });
 
