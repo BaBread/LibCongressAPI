@@ -51,41 +51,104 @@ let hintButton = $("#hint-button");
 let hintElement = $("#hint");
 
 
-// ---------------------------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------------------
 // This section contains the code and functions for the base quiz functionality
-// the questions will be stored in an array with each index holding the object of question, answer, and choices
+// The questions will be stored in an array with each index holding the object of question, answer, and choices
 let questions = [
-    { q: 'Arrays in Javascript can be used to store __________.', 
-          a: '4. all of the above', 
-          choices: [{choice: '1. numbers'}, {choice: '2. booleans'}, {choice: '3. strings'}, {choice: '4. all of the above'}]
-        },
-        { q: 'What is jquery?', 
-          a: '2. a js library used to help speed up coding', 
-          choices: [{choice: '1. a query for j'}, {choice: '2. a js library used to help speed up coding'}, {choice: '3. a question about javascript'}, {choice: '4. a testing method for checking js code'}]
-        },
-        { q: 'In the code -- setinterval(time(),1000) -- what is time()?', 
-          a: '1. callback function', 
-          choices: [{choice: '1. callback function'}, {choice: '2. undefined'}, {choice: '3. variable'}, {choice: '4. all of the above'}]
-        },
-        { q: 'What syntax would call a function?', 
-          a: '4. function()', 
-          choices: [{choice: '1. var function'}, {choice: '2. function'}, {choice: '3. call function'}, {choice: '4. function()'}]
-        },
-        { q: 'in Git Bash, how do you go up one level in your file directory?', 
-          a: '1. cd..', 
-          choices: [{choice: '1. cd..'}, {choice: '2. ls ..'}, {choice: '3. cd updoot'}, {choice: '4. ^^'}]
-        },
-        { q: 'What does DOM stand for?', 
-          a: '2. Document Object Model', 
-          choices: [{choice: '1. Do Overnight Modules'}, {choice: '2. Document Object Model'}, {choice: '3. Divas Obviously Model'}, {choice: '4. Do Oo Mo'}]
-        },
-        { q: 'In jquery, what is the short-hand way to point our javascript code to an id in HTML?', 
-          a: "1. $('')", 
-          choices: [{choice: "1. $('')"}, {choice: '2. .getElementById()'}, {choice: '3. .refHTML'}, {choice: '4. .upperCase'}]
-        },
-      ];
-
-    //   Since we are using the formatting of putting each div into "containers", we will show and hide them using CSS classes
+  {
+    q: 'Where does the President of the United States live while in office?',
+    a: 'B. The White House',
+    choices: [
+      { choice: 'A. Trump Tower' },
+      { choice: 'B. The White House' },
+      { choice: 'C. The Capitol Building' },
+      { choice: 'D. The Naval Observatory' }
+    ]
+  },
+  {
+    q: 'How many days are in a year usually?',
+    a: 'C. 365',
+    choices: [
+      { choice: 'A. 366' },
+      { choice: 'B. 364' },
+      { choice: 'C. 365' },
+      { choice: 'D. 363' }
+    ]
+  },
+  {
+    q: 'Who is Batman`s crime-fighting partner?',
+    a: 'A. Robin',
+    choices: [
+      { choice: 'A. Robin' },
+      { choice: 'B. Batgirl' },
+      { choice: 'C. Alfred' },
+      { choice: 'D. Nightwing' }
+    ]
+  },
+  {
+    q: 'How many planets are in our solar system?',
+    a: 'A. 8',
+    choices: [
+      { choice: 'A. 8' },
+      { choice: 'B. 9' },
+      { choice: 'C. 7' },
+      { choice: 'D. 10' }
+    ]
+  },
+  {
+    q: 'What is the largest mammal in the world?',
+    a: 'D. Blue Whale',
+    choices: [
+      { choice: 'A. African Elephant' },
+      { choice: 'B. Polar Bear' },
+      { choice: 'C. Giraffe' },
+      { choice: 'D. Blue Whale' }
+    ]
+  },
+  {
+    q: 'How many continents are there in the world?',
+    a: 'C. 7',
+    choices: [
+      { choice: 'A. 5' },
+      { choice: 'B. 6' },
+      { choice: 'C. 7' },
+      { choice: 'D. 8' }
+    ]
+  },
+  {
+    q: 'What is the largest organ of the human body?',
+    a: 'D. Skin',
+    choices: [
+      { choice: 'A. Brain' },
+      { choice: 'B. Heart' },
+      { choice: 'C. Liver' },
+      { choice: 'D. Skin' }
+    ]
+  },
+  {
+    q: 'How many months have 28 days?',
+    a: 'C. 12',
+    choices: [
+      { choice: 'A. 1' },
+      { choice: 'B. 6' },
+      { choice: 'C. 12' },
+      { choice: 'D. 0' }
+    ]
+  },
+  {
+    q: '(True or False: On average, at least 1 person is killed by a drunk driver in the United States every hour.',
+    a: 'True',
+    choices: [
+      { choice: 'A. True' },
+      { choice: 'B. False' }
+    ]
+  },
+  {
+    q: 'Name 3 Countries Fast!',
+    a: '',
+    isWrittenResponse: true
+  }
+];
 
 
 // Set timer function for quiz
