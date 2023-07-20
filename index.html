@@ -4,24 +4,23 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Real Winners</title>
-        <link rel="stylesheet" href="./assets/style.css">
-    </head>
+        <title class="Title">Real Winners</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">    </head>
 
     <body> 
-
+          
         <header>
-            <h4 id="view-high-scores">View High Scores</h4> 
-            <h4 class="timer">Time: <span id="timer"></span></h4>
+            <h3 id="view-high-scores">View High Scores</h4> 
+            <h4 class="timer has-text-danger has-text-right">Time: <span id="timer"></span></h4>
         </header>
 
 
         <div id="starter-container" class="show">
-            <div class="container start">
+            <div class="container start has-text-link">
                 <h1>Real Winners</h1>  
                 <p>Try your best to answer these 10 questions within the time limit! Remember, don't overthink! 
                 </p>
-                <button class="btn startend" id="start-game">Start Quiz</button>
+                <button class="button" id="start-game">Start Quiz</button>
                 <form id="username-form" class="username">
                     <p>Enter your username:</p>
                     <input type="text" name="username" id="username-input" class="text-input" required>
@@ -29,8 +28,11 @@
             </div>    
         </div>
 
+
+    <section .botton>
+
 <!-- This div contains the quiz questions and answer buttons -->
-        <div id="question-container" class="hide">
+        <div id="question-container" class="show">
             <div class="container questions">
                 <div id="question"></div>
                 <div id="hint"></div><!--New element for displaying the hint/jokes!-->
@@ -40,17 +42,17 @@
 
 
 <!-- This div shows at the end of the quiz and allows for the submission of your score -->
-        <div id="end-container" class="hide">
+        <div id="end-container" class="show">
            <div class="container end">
             <div id="score-banner">
                 <h1>All done!</h1>
-                <h2 id="passed">Congratulations, you passed!</h2>
-                <h2 id="failed">Congratulations, you failed</h3>
+                <h2 id="passed"class=has-text-success>Congratulations, you passed!</h2>
+                <h2 id="failed"class=has-text-danger>Congratulations, you failed</h3>
             </div>  
             <form id="initials-form" class="initials">
               <p> Enter Initials:
                 <input type="text" name="initials" id="initials" class="text-input" />
-                <button class="btn startend" id="submit-score" type="submit">Submit</button> </p>
+                <section class="button is-centered" id="submit-score" type="submit">Submit</section> </p>
 
                 <!--Change "Link to Deployed Application" to the URL of the website, unless you want to troll!
                 Maybe the rick roll video?-->
@@ -64,13 +66,13 @@
             <h1 class="high-score">High Scores</h1>
             <ol id="high-score-list" class="score-list"></ol>
         <div>
-            <button class="btn" id="go-back">Go back</button>
-            <button class="btn" id="clear-high-scores">Clear high scores</button>
+            <button class="button" id="go-back">Go back</button>
+            <button class="button" id="clear-high-scores">Clear high scores</button>
         </div>
         </div>
     </div>
 <!-- This div shows the text for if the answer is correct -->
-    <div class="hide" id="correct">
+    <div class="show" id="correct">
         <h2>Correct :)!</h2>
     </div>
     <div class="hide" id="wrong">
