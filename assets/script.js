@@ -189,6 +189,7 @@ let startGame = function() {
   questionContainer.addClass('show');
   questionContainer.removeClass('is-hidden');
   usernameFieldEl.addClass('is-hidden');
+  hintButton.removeClass('is-hidden');
   arrayShuffleQuestions = questions.sort(() => Math.random()-0.5);
   quizStartTime()
   setQuestions()
@@ -263,7 +264,7 @@ let answerCorrect = function() {
   correctEl.addClass('banner');
   correctEl.removeClass('is-hidden');
   wrongEl.removeClass('banner');
-  wrongEl.addClass('show');
+  wrongEl.addClass('is-hidden');
 
 
 }
@@ -311,10 +312,12 @@ let showScore = function (){
   wrongEl.removeClass('banner');
   correctEl.addClass('is-hidden');
   correctEl.removeClass('banner');
-
+  checkCollaborator();
+  
   let displayScore = $('<p></p>');
   displayScore.text('Your score is ' + score + "!")
   $('#score-banner').append(displayScore)
+  
 
 }
 // functions below create the high scores and save to local storage, allowing them to be loaded upon page reload
@@ -455,7 +458,7 @@ goBackBtn.on('click',resetToStart)
 // This part of the code pulls the collaborators from the Github repository this will be used to compare against the entered
 // Github username to determine if they pass or not
 
-const token = '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'
+const token = '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'
 gitHubURL = "https://api.github.com/repos/BaBread/RealWinners/collaborators"
 
 $.ajax({
