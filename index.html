@@ -10,13 +10,13 @@
     <body> 
           
         <header>
-            <h3 id="view-high-scores">View High Scores</h4> 
+            <h3 id="view-high-scores" class="mx-2">View High Scores</h3> 
             <h4 class="timer has-text-danger has-text-right">Time: <span id="timer"></span></h4>
         </header>
 
 
         <div id="starter-container" class="show">
-            <div class="container start has-text-link">
+            <div class="has-text-centered is-align-items-center has-text-link">
                 <h1>Real Winners</h1>  
                 <p>Try your best to answer these 10 questions within the time limit! Remember, don't overthink! 
                 </p>
@@ -33,7 +33,7 @@
 
 <!-- This div contains the quiz questions and answer buttons -->
         <div id="question-container" class="show">
-            <div class="container questions">
+            <div class="container questions has-text-centered">
                 <div id="question"></div>
                 <div id="hint"></div><!--New element for displaying the hint/jokes!-->
                 <div id="answer-buttons" class="btn-grid"></div>
@@ -45,11 +45,11 @@
         <div id="end-container" class="show">
            <div class="container end">
             <div id="score-banner">
-                <h1>All done!</h1>
-                <h2 id="passed"class=has-text-success>Congratulations, you passed!</h2>
-                <h2 id="failed"class=has-text-danger>Congratulations, you failed</h3>
+                <h1 class="has-text-centered">All done!</h1>
+                <h2 id="passed"class="has-text-centered has-text-success">Congratulations, you passed!</h2>
+                <h2 id="failed"class="has-text-centered has-text-danger">Congratulations, you failed</h3>
             </div>  
-            <form id="initials-form" class="initials">
+            <form id="initials-form" class="initials has-text-centered">
               <p> Enter Initials:
                 <input type="text" name="initials" id="initials" class="text-input" />
                 <section class="button is-centered" id="submit-score" type="submit">Submit</section> </p>
@@ -62,7 +62,7 @@
         </div>
 
         <div id="high-score-container" class="hide">
-          <div class="high-scores container">
+          <div class="has-text-centered high-scores container">
             <h1 class="high-score">High Scores</h1>
             <ol id="high-score-list" class="score-list"></ol>
         <div>
