@@ -6,6 +6,7 @@ let highScoreContainer = $('#high-score-container');
 let scoreContainer = $('#score-banner');
 let correctEl = $('#correct')
 let wrongEl = $('#wrong')
+let usernameFieldEl = $('#username-form')
 
 
 // Define all variables to point to the buttons of start quiz, go back, and clear high scores
@@ -146,14 +147,17 @@ let questions = [
   {
     q: 'Name 3 Countries Fast!',
     a: '',
-    isWrittenResponse: true
+    choices: [
+      { choice: 'A. True' },
+      { choice: 'B. False' }
+    ]
   }
 ];
 
 
 // Set timer function for quiz
 let quizStartTime = function() {
-  timeLeft = 60;
+  timeLeft = 30;
 
 
 
@@ -180,10 +184,11 @@ let timerCountDown = setInterval(function () {
 // create function to start the game
 
 let startGame = function() {
-  startContainer.addClass('hide');
+  startContainer.addClass('is-hidden');
   startContainer.removeClass('show');
   questionContainer.addClass('show');
-  questionContainer.removeClass('hide');
+  questionContainer.removeClass('is-hidden');
+  usernameFieldEl.addClass('is-hidden');
   arrayShuffleQuestions = questions.sort(() => Math.random()-0.5);
   quizStartTime()
   setQuestions()
@@ -203,19 +208,48 @@ let resetAnswers = function() {
 // function to hide other containers and show the questions container
 let displayQuestions = function(index) {
   questionsEl.text(index.q);
-  for (let i=0;i<index.choices.length;i++) {
-    let answerBtn = $('<button></button>');
-    answerBtn.text(index.choices[i].choice);
-    answerBtn.addClass('btn');
-    answerBtn.addClass('answerbtn');
-    answerBtn.on('click',answerCheck)
-    answersEl.append(answerBtn);
-
-
+  if (index.isWrittenResponse) {
+    // For written response questions, create a textarea element instead of answer buttons
+    let answerTextarea = $('<textarea></textarea>');
+    answerTextarea.addClass('written-response');
+    answersEl.append(answerTextarea);
+  } else {
+    // For multiple-choice questions, create answer buttons
+    for (let i = 0; i < index.choices.length; i++) {
+      let answerBtn = $('<button></button>');
+      answerBtn.text(index.choices[i].choice);
+      answerBtn.addClass('btn');
+      answerBtn.addClass('answerbtn');
+      answerBtn.on('click', answerCheck);
+      answersEl.append(answerBtn);
+    }
   }
+};
 
 
-}
+let checkWrittenResponse = function() {
+  // Get the user's written response from the textarea
+  let userResponse = $('.written-response').val();
+  // Check if the user's response is correct (for example, check if it contains three countries separated by commas)
+  let correctResponse = 'Country 1, Country 2, Country 3'; // Replace this with the correct response for your quiz
+  if (userResponse === correctResponse) {
+    answerCorrect();
+    score = score + 10;
+  } else {
+    answerWrong();
+    score = score - 3;
+    timeLeft = timeLeft - 5;
+  }
+  initQuestionIndex++;
+  if (initQuestionIndex < arrayShuffleQuestions.length) {
+    setQuestions();
+  } else {
+    gameover = "true";
+    showScore();
+  }
+};
+
+
 
 let setQuestions = function() {
   resetAnswers()
@@ -227,7 +261,7 @@ let setQuestions = function() {
 
 let answerCorrect = function() {
   correctEl.addClass('banner');
-  correctEl.removeClass('hide');
+  correctEl.removeClass('is-hidden');
   wrongEl.removeClass('banner');
   wrongEl.addClass('show');
 
@@ -236,46 +270,46 @@ let answerCorrect = function() {
 
 let answerWrong = function() {
   wrongEl.addClass('banner');
-  wrongEl.removeClass('hide');
-  correctEl.addClass('hide');
+  wrongEl.removeClass('is-hidden');
+  correctEl.addClass('is-hidden');
   correctEl.removeClass('banner');
 }
 
 // function checks if the selected answer matches the answer in the shuffled questions object
 let answerCheck = function(event) {
-  let selectedanswer=event.target;
-  if (arrayShuffleQuestions[initQuestionIndex].a===$(selectedanswer).text()){
-    answerCorrect();
-    score = score + 10;
+  let selectedanswer = event.target;
+  if (arrayShuffleQuestions[initQuestionIndex].isWrittenResponse) {
+    // For written response questions, call the checkWrittenResponse function
+    checkWrittenResponse();
+  } else {
+    // For multiple-choice questions, check if the selected answer is correct
+    if (arrayShuffleQuestions[initQuestionIndex].a === $(selectedanswer).text()) {
+      answerCorrect();
+      score = score + 10;
+    } else {
+      answerWrong();
+      score = score - 3;
+      timeLeft = timeLeft - 5;
+    }
+    initQuestionIndex++;
+    if (initQuestionIndex < arrayShuffleQuestions.length) {
+      setQuestions();
+    } else {
+      gameover = "true";
+      showScore();
+    }
   }
-  else {
-    answerWrong();
-    score = score - 3;
-    timeLeft = timeLeft - 5;
-  }
-
-  initQuestionIndex++
-  if (initQuestionIndex < arrayShuffleQuestions.length ) {
-    setQuestions();
-  }
-
-  else {
-    gameover = "true";
-    showScore();
-  }
-
-
-}
+};
 
 // function shows the score by hiding other containers
 let showScore = function (){
-  questionContainer.addClass('hide');
+  questionContainer.addClass('is-hidden');
   questionContainer.removeClass('show');
   endContainer.addClass('show');
-  endContainer.removeClass('hide');
-  wrongEl.addClass('hide');
+  endContainer.removeClass('is-hidden');
+  wrongEl.addClass('is-hidden');
   wrongEl.removeClass('banner');
-  correctEl.addClass('hide');
+  correctEl.addClass('is-hidden');
   correctEl.removeClass('banner');
 
   let displayScore = $('<p></p>');
@@ -351,27 +385,27 @@ let showScore = function (){
 
 let displayHighScores = function() {
   highScoreContainer.addClass('show');
-  highScoreContainer.removeClass('hide');
+  highScoreContainer.removeClass('is-hidden');
   gameover = "true"
 
   if (endContainer.hasClass('show')) {
-    endContainer.removeClass('show').addClass('hide');
+    endContainer.removeClass('show').addClass('is-hidden');
   }
   
   if (startContainer.hasClass('show')) {
-    startContainer.removeClass('show').addClass('hide');
+    startContainer.removeClass('show').addClass('is-hidden');
   }
   
   if (questionContainer.hasClass('show')) {
-    questionContainer.removeClass('show').addClass('hide');
+    questionContainer.removeClass('show').addClass('is-hidden');
   }
   
   if (correctEl.hasClass('show')) {
-    correctEl.removeClass('show').addClass('hide');
+    correctEl.removeClass('show').addClass('is-hidden');
   }
   
   if (wrongEl.hasClass('show')) {
-    wrongEl.removeClass('show').addClass('hide');
+    wrongEl.removeClass('show').addClass('is-hidden');
   }
 
 
@@ -389,13 +423,13 @@ let displayHighScores = function() {
 
 // resets the page back to the initial start
 let resetToStart = function() {
-startContainer.addClass('show').removeClass('hide');
-highScoreContainer.addClass('hide').removeClass('show');
-questionContainer.addClass('hide').removeClass('show');
-endContainer.addClass('hide').removeClass('show');
-scoreContainer.addClass('hide').removeClass('show');
-correctEl.addClass('hide').removeClass('show');
-wrongEl.addClass('hide').removeClass('show');
+startContainer.addClass('show').removeClass('is-hidden');
+highScoreContainer.addClass('is-hidden').removeClass('show');
+questionContainer.addClass('is-hidden').removeClass('show');
+endContainer.addClass('is-hidden').removeClass('show');
+scoreContainer.addClass('is-hidden').removeClass('show');
+correctEl.addClass('is-hidden').removeClass('show');
+wrongEl.addClass('is-hidden').removeClass('show');
 gameover = "";
 timerEl.text('0');
 score = 0;
@@ -407,10 +441,10 @@ score = 0;
 // loads the stored high scores and holds all the event listeners for the buttons
 // loadHighScore()
 startBtn.on("click", startGame);
-submitScoreEl.on('click',createHighScore)
+submitScoreEl.on('click',displayHighScores)
 viewHighScoreEl.on('click',displayHighScores)
 goBackBtn.on('click',resetToStart)
-clearHighScoreBtn.on('click',clearScores)
+// clearHighScoreBtn.on('click',clearScores)
 
 
 
@@ -421,7 +455,7 @@ clearHighScoreBtn.on('click',clearScores)
 // This part of the code pulls the collaborators from the Github repository this will be used to compare against the entered
 // Github username to determine if they pass or not
 
-const token = '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'
+const token = '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'
 gitHubURL = "https://api.github.com/repos/BaBread/RealWinners/collaborators"
 
 $.ajax({
@@ -450,17 +484,17 @@ $.ajax({
 
     if (isMatch) {
         passEl.addClass('show')
-        passEl.removeClass('hide')
-        failEl.addClass('hide')
+        passEl.removeClass('is-hidden')
+        failEl.addClass('is-hidden')
         failEl.removeClass('show')
 
     }
 
     else {
-        passEl.addClass('hide')
+        passEl.addClass('is-hidden')
         passEl.removeClass('show')
         failEl.addClass('show')
-        failEl.removeClass('hide')
+        failEl.removeClass('is-hidden')
 
     }
 
@@ -478,10 +512,11 @@ $(document).ready(function() {
     function handleClick() {
       // ajax request to the jokes api with safemode enabled for sfw jokes
       $.ajax({
-        url: "https://v2.jokeapi.dev/joke/Misc,Programming?format=xml&safe-mode&type=single",
+        url: "https://v2.jokeapi.dev/joke/Misc,Programming?format=json&safe-mode&type=single",
         method: "GET",
         success: function(response) {
           hintElement.text(response.joke);
+          
         },
         error: function(xhr, status, error) {
           console.log("Error:", error);

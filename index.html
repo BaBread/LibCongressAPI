@@ -10,8 +10,8 @@
     <body> 
           
         <header>
-            <h3 id="view-high-scores" class="mx-2">View High Scores</h3> 
-            <h4 class="timer has-text-danger has-text-right">Time: <span id="timer"></span></h4>
+            <h3 class= 'has-input ml-4' id="view-high-scores">View High Scores</h4> 
+            <h4 class="mr-4 timer has-text-danger has-text-right">Time: <span id="timer"></span></h4>
         </header>
 
 
@@ -32,10 +32,11 @@
     <section .botton>
 
 <!-- This div contains the quiz questions and answer buttons -->
-        <div id="question-container" class="show">
-            <div class="container questions has-text-centered">
+        <div id="question-container" class="show container">
+            <button class="button is-align-items-center" id="hint-button">Click for Hint!</button>
+            <div class="container questions">
                 <div id="question"></div>
-                <div id="hint"></div><!--New element for displaying the hint/jokes!-->
+                <h4 id="hint"></h4><!--New element for displaying the hint/jokes!-->
                 <div id="answer-buttons" class="btn-grid"></div>
             </div>
         </div>
@@ -61,8 +62,8 @@
             </div>
         </div>
 
-        <div id="high-score-container" class="hide">
-          <div class="has-text-centered high-scores container">
+        <div id="high-score-container" class="is-hidden">
+          <div class="high-scores container">
             <h1 class="high-score">High Scores</h1>
             <ol id="high-score-list" class="score-list"></ol>
         <div>
@@ -72,10 +73,10 @@
         </div>
     </div>
 <!-- This div shows the text for if the answer is correct -->
-    <div class="show" id="correct">
+    <div class="show container" id="correct">
         <h2>Correct :)!</h2>
     </div>
-    <div class="hide" id="wrong">
+    <div class="is-hidden container" id="wrong">
         <h2>Wrong :( </h2>
     </div>
 
