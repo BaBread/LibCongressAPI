@@ -16,7 +16,7 @@
 
 
         <div id="starter-container" class="show">
-            <div class="container start has-text-link">
+            <div class="has-text-centered is-align-items-center has-text-link">
                 <h1>Real Winners</h1>  
                 <p>Try your best to answer these 10 questions within the time limit! Remember, don't overthink! 
                 </p>
@@ -33,7 +33,9 @@
 
 <!-- This div contains the quiz questions and answer buttons -->
         <div id="question-container" class="show container">
-            <button class="button has-text-centered is-hidden" id="hint-button">Click for Hint!</button>
+
+            <button class="button is-align-items-center is-hidden" id="hint-button">Click for Hint!</button>
+
             <div class="container questions">
                 <h4 id="hint"></h4><!--New element for displaying the hint/jokes!-->
                 <div id="question"></div>
@@ -46,11 +48,13 @@
         <div id="end-container" class="show is-hidden">
            <div class="container end">
             <div id="score-banner">
-                <h1>All done!</h1>
-                <h2 id="passed"class='has-text-success is-hidden'>Congratulations, you passed!</h2>
-                <h2 id="failed"class='has-text-danger is-hidden'>Congratulations, you failed</h3>
+
+                <h1 class="has-text-centered">All done!</h1>
+                <h2 id="passed"class="has-text-centered has-text-success is-hidden">Congratulations, you passed!</h2>
+                <h2 id="failed"class="has-text-centered has-text-danger is-hidden">Congratulations, you failed</h3>
+
             </div>  
-            <form id="initials-form" class="initials">
+            <form id="initials-form" class="initials has-text-centered">
               <p> Enter Initials:
                 <input type="text" name="initials" id="initials" class="text-input" />
                 <section class="button is-centered" id="submit-score" type="submit">Submit</section> </p>
