@@ -320,71 +320,7 @@ let showScore = function (){
   
 
 }
-// functions below create the high scores and save to local storage, allowing them to be loaded upon page reload
-// let createHighScore = function(event) {
-//   event.preventDefault();
-//   let initials = $("#initials").val();
-//   if (!initials) {
-//     alert("Enter your initials!");
-//     return;
-//   }
 
-//   initialsFormEl[0].reset();
-
-//   let HighScore = {
-//     initials: initials,
-//     score: score
-//   };
-
-//   // Push and sort scores
-//   highScores.push(HighScore);
-//   highScores.sort((a, b) => {
-//     return b.score - a.score;
-//   });
-
-//   // Clear visible list to resort
-//   listHighScoreEl.empty();
-
-//   // Create elements in order of high scores
-//   for (var i = 0; i < highScores.length; i++) {
-//     var highscoreEl = $("<li>").addClass("high-score");
-//     highscoreEl.html(highScores[i].initials + " - " + highScores[i].score);
-//     listHighScoreEl.append(highscoreEl);
-//   }
-
-//   saveHighScore();
-//   displayHighScores();
-// };
-
-
-// let saveHighScore = function(){
-//   localStorage.setItem("highScore", JSON.stringify(highScores))
-
-
-// }
-
-// let loadHighScore = function() {
-//   let loadedHighScore = localStorage.getItem('highScore')
-//   if (!loadedHighScore) {
-//     return false;
-//   }
-
-//   loadedHighScore = JSON.parse(loadedHighScore)
-//   loadedHighScore.sort(function(a, b) {
-//     return b.score - a.score;
-//   });
-
-//   highScores = loadedHighScore
-
-//   for (let i=0; i< highScores.length;i++) {
-//     let highScoreEl = $('<li></li>')
-//     highScoreEl.addClass('high-score')
-//     highScoreEl.text(highScores[i].initials + " - " + highScores[i].score)
-//     listHighScoreEl.append(highScoreEl)
-//   }
-
-
-// }
 
 let displayHighScores = function() {
   highScoreContainer.addClass('show');
@@ -452,13 +388,13 @@ goBackBtn.on('click',resetToStart)
 
 
 
-
-
 // ------------------------------------------------------------------------------------------------------------
 // This part of the code pulls the collaborators from the Github repository this will be used to compare against the entered
 // Github username to determine if they pass or not
+// We haven't learned how to use Node.js yet, which I'm reading is needed to securely store the key. 
+// Key will keep being auto-revoked by GitHub on pushing to GitHub
 
-const token = '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'
+const token = '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'
 gitHubURL = "https://api.github.com/repos/BaBread/RealWinners/collaborators"
 
 $.ajax({
@@ -532,3 +468,35 @@ $(document).ready(function() {
     hintButton.on("click", handleClick);
   });
 
+  // /------------------------------------------------------------------------------------------------
+  //adds event listener for grimace
+  const grimaceButton = document.getElementById("grimace");
+  const grimaceImage = document.getElementById("grimace-image");
+  grimaceButton.addEventListener("click", function () {
+    if (grimaceImage.style.display === "none") {
+      grimaceImage.style.display = "block";
+    } else {
+      grimaceImage.style.display = "none";
+    }
+  });
+
+  // the code for the youtube api that would not work:point_down::sweat:. Issues loading the video consistently
+  // also cannot embed the way we wanted it to due to copyright concerns on the video
+  //o-YBDTqX_ZU
+  // function onPlayerReady(event) {
+  //   document.querySelector("#player").addEventListener("click", function () {
+  //     event.target.playVideo();
+  //   });
+  // }
+  // rickvid.addEventListener("click", function () {
+  //   console.log("clicked!");
+  //insert play function
+  //   // Load the YouTube Iframe API
+  //   var tag = document.createElement("script");
+  //   tag.src =
+  //     "https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelId=UC2eEHetmyPERpOQzJzEdZpA&maxResults=1&order=viewCount&key=AIzaSyDZbbPr0Mdly1jEEnY-bNZTl9UoKK5d0PA";
+  //   var firstScriptTag = document.getElementsByTagName("script")[0];
+  //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  //   // Event handler for when the YouTube Iframe API is ready
+  //   window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+  //});
