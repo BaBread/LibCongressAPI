@@ -1,0 +1,20 @@
+name: My GitHub Action
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up environment
+        run: echo "MY_SECRET=${{ secrets.MY_SECRET }}" >> $GITHUB_ENV
+
+      - name: Use the secret
+        run: echo "The value of MY_SECRET is $MY_SECRET"
