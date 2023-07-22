@@ -33,22 +33,22 @@
 
 <!-- This div contains the quiz questions and answer buttons -->
         <div id="question-container" class="show container">
-            <button class="button has-text-centered" id="hint-button">Click for Hint!</button>
+            <button class="button has-text-centered is-hidden" id="hint-button">Click for Hint!</button>
             <div class="container questions">
-                <div id="question"></div>
                 <h4 id="hint"></h4><!--New element for displaying the hint/jokes!-->
+                <div id="question"></div>
                 <div id="answer-buttons" class="btn-grid"></div>
             </div>
         </div>
 
 
 <!-- This div shows at the end of the quiz and allows for the submission of your score -->
-        <div id="end-container" class="show">
+        <div id="end-container" class="show is-hidden">
            <div class="container end">
             <div id="score-banner">
                 <h1>All done!</h1>
-                <h2 id="passed"class=has-text-success>Congratulations, you passed!</h2>
-                <h2 id="failed"class=has-text-danger>Congratulations, you failed</h3>
+                <h2 id="passed"class='has-text-success is-hidden'>Congratulations, you passed!</h2>
+                <h2 id="failed"class='has-text-danger is-hidden'>Congratulations, you failed</h3>
             </div>  
             <form id="initials-form" class="initials">
               <p> Enter Initials:
@@ -65,7 +65,12 @@
         <div id="high-score-container" class="is-hidden">
           <div class="high-scores container">
             <h1 class="high-score">High Scores</h1>
-            <ol id="high-score-list" class="score-list"></ol>
+            <ol id="high-score-list" class="score-list">CoolGuyChrisly: 9999</ol>
+            <ol>Cody: 9999</ol> 
+            <ol>Matt: 9999</ol> 
+            <ol>Ken: 9999</ol> 
+            <ol>Donald: 9999</ol> 
+
         <div>
             <button class="button" id="go-back">Go back</button>
             <button class="button" id="clear-high-scores">Clear high scores</button>
@@ -73,7 +78,7 @@
         </div>
     </div>
 <!-- This div shows the text for if the answer is correct -->
-    <div class="show container" id="correct">
+    <div class="show container is-hidden" id="correct">
         <h2>Correct :)!</h2>
     </div>
     <div class="is-hidden container" id="wrong">
