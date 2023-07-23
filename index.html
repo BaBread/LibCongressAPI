@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title class="Title">Real Winners</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">    </head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <script src="https://www.youtube.com/iframe_api"></script>    </head>
 
     <body> 
           
@@ -29,8 +30,7 @@
         </div>
 
 
-    <section .botton>
-
+    
 <!-- This div contains the quiz questions and answer buttons -->
         <div id="question-container" class="show container">
 
@@ -61,7 +61,7 @@
 
                 <!--Change "Link to Deployed Application" to the URL of the website, unless you want to troll!
                 Maybe the rick roll video?-->
-                <a href="Link to Deployed Application" target="_self">Click here to restart quiz! Remember failure is the greatest teacher! :)</a>
+                <!-- <a href="Link to Deployed Application" target="_self">Click here to restart quiz! Remember failure is the greatest teacher! :)</a> -->
               </form>
             </div>
         </div>
@@ -69,7 +69,7 @@
         <div id="high-score-container" class="is-hidden">
           <div class="high-scores container">
             <h1 class="high-score">High Scores</h1>
-            <ol id="high-score-list" class="score-list">CoolGuyChrisly: 9999</ol>
+            <ol id="high-score-list" class="score-list">CoolGuyChrisly: 1K</ol>
             <ol>Cody: 9999</ol> 
             <ol>Matt: 9999</ol> 
             <ol>Ken: 9999</ol> 
@@ -89,9 +89,64 @@
         <h2>Wrong :( </h2>
     </div>
 
+       <!--Change "Link to Deployed Application" to the URL of the website, unless you want to troll!
+                Maybe the rick roll video?-->
+    <div id="lastContainer" class="">
+
+        <div class="container has-text-centered">
+                <button id="grimaceButton" class="button is-hidden ">
+                  Click here to restart quiz! Remember failure is the greatest teacher! 😉
+                </button>
+                <script>document.getElementById("grimaceButton").addEventListener("click", function () {
+                    // Open a new window with the image in full screen
+                    const newWindow = window.open("", "_blank", "fullscreen=yes");
+                  
+                    // Write the image element to the new window
+                    newWindow.document.write(
+                      `<img src="./assets/images/grimace.jpg" style="width: 100%; height: 100%;" />`
+                    );
+                  });</script>
+        </div>
+
+          <!--YouTube video-->
+            <div id="rickdiv" class="container has-text-centered is-hidden ">
+                <a id="rickroll" href="https://www.youtube.com/watch?v=o-YBDTqX_ZU">Need Some Motivation?</a>
+            </div>
+    </div>
+
+            <!-- <div id="grimaceContainer" class="is-flex is-justify-content-center">
+                  <img
+                    id="grimace-image"
+                    style="display: none"
+                    src="./assets/images/grimace.jpg"
+                  />
+            </div> -->
+        
+            
+          
+          
+            
+            <!-- <div id="player"> -->
+                <!-- IFrame tag to embed the YouTube video -->
+                <!-- <iframe
+                  id="player"
+                  width="320"
+                  height="180"
+                  src="https://www.youtube.com/embed/o-YBDTqX_ZU?autoplay=1&controls=0&showinfo=0&modestbranding=1"
+                  frameborder="0"
+                  allow="autoplay"
+                  allowfullscreen
+                ></iframe>
+            </div> -->
+        
+    
+             
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./assets/script.js"></script> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
+
+
