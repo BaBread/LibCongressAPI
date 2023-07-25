@@ -319,6 +319,8 @@ let displayHighScores = function () {
   if (wrongEl.hasClass("show")) {
     wrongEl.removeClass("show").addClass("is-hidden");
   }
+  rickdiv.addClass('is-hidden');
+  grimaceButton.addClass('is-hidden')
 };
 // clears the scores both on the page and in local storage
 // let clearScores = function() {
@@ -358,7 +360,7 @@ goBackBtn.on("click", resetToStart);
 // Key will keep being auto-revoked by GitHub on pushing to GitHub
 
 const token =
-  "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";
+  "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";
 gitHubURL = "https://api.github.com/repos/BaBread/RealWinners/collaborators";
 
 $.ajax({
@@ -404,6 +406,7 @@ $(document).ready(function () {
   // function that handles the click event
   function handleClick() {
     // ajax request to the jokes api with safemode enabled for sfw jokes
+    hintElement.removeClass('is-hidden')
     $.ajax({
       url: "https://v2.jokeapi.dev/joke/Misc,Programming?format=json&safe-mode&type=single",
       method: "GET",
